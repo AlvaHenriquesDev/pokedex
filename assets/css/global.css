@@ -1,0 +1,21 @@
+@import url("./reset.css");
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+	font-family: 'roboto', sans-serif;
+	font-weight: 900;
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background-color: #e5e5e5;
+}
+
+.content {
+	padding: 1rem;
+	background-color: #fff;
+}
+
+
+	
