@@ -1,40 +1,43 @@
-const offset = 0;
-const limit = 10;
-const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}]`;
-
-function convertPokemonToLi(pokemon) {
-	return `<li class="pokemon">
-					<span class="number">#001</span>
-					<span class="name">${pokemon.name}</span>
-					<div class="detail">
-						<ol class="types">
-							<li class="type">Grass</li>
-							<li class="type">Poison</li>
-						</ol>
-						<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg"
-							alt="${pokemon.name}">
-					</div>
-				</li>
-    `
-}
-
 const pokemonList = document.getElementById('pokemonList')
+const paginationButton = document.getElementById('pagination')
+const maxRecords = 151
+const limit = 5
+let offset = 0
 
 
-fetch(url)
-	.then((response) => response.json())
-	.then((jsonBody) => jsonBody.results)
-	.then((pokemons) => {
+function loadPokemonItens() {
+	pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
+		const newHtml = pokemons.map((pokemon) => `
+        <li class="pokemon ${pokemon.type}">
+            <span class="number">#${pokemon.number}</span>
+            <span class="name">${pokemon.name}</span>
 
-		for (let i = 0; i < pokemons.length; i++) {
-			const pokemon = pokemons[i];
-			pokemonList.innerHTML += convertPokemonToLi(pokemon)
-		}
-		console.log('...Carregamento finalizado')
+            <div class="detail">
+                <ol class="types">
+                    ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
+                </ol>
+
+                <img src="${pokemon.photo}"
+                     alt="${pokemon.name}">
+            </div>
+        </li>
+    	`).join('')
+		pokemonList.innerHTML += newHtml
 	}
 	)
-	.catch((error) => console.log(error))
+}
+loadPokemonItens(offset, limit)
 
-console.log("Esperando...")
+paginationButton.addEventListener('click', () => {
+	offset += limit
 
-//y-front-end-do-zero/course/entendendo-o-funcionamento-do-protocolo-http/learning/bb9ca767-7c06-46e9-a5f8-903a760d62a3?autoplay=1
+	const qtdRecordNextPage = offset + limit
+
+	if (qtdRecordNextPage >= maxRecords) {
+		const newLimit = maxRecords - offset
+		loadPokemonItens(offset, newLimit)
+		paginationButton.parentElementre.removeChild(paginationButton)
+	} else {
+		loadPokemonItens(offset, limit)
+	}
+})

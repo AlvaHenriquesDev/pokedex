@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="en pt-br">
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Pokedex</title>
-
 	<!-- Arquivos de Estilo -->
 	<link rel="stylesheet" href="./assets/css/global.css">
 	<link rel="stylesheet" href="/assets/css/pokedex.css">
 </head>
-
 <body id="pokedex">
 	<section class="content">
 		<h1>Pokedex</h1>
 		<ol id="pokemonList" class="pokemons">
-		
 		<!-- Pokemons Here -->
 		</ol>
+		<button id="pagination">Carregar</button>
+
 	</section>
 	<!-- Arquivos de iteração -->
-	<script src="./assets/js/main.js"></script>
+	 <script defer src="./assets/js/pokemon-model.js"></script>
+	 <script defer src="./assets/js/poke-api.js"></script>
+	<script defer src="./assets/js/main.js"></script>
+	
 </body>
-
 </html>
